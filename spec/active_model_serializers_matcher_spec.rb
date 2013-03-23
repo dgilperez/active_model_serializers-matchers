@@ -11,6 +11,26 @@ describe ActiveModel::Serializers::Matchers do
     serializer.should_not have_attribute :bar
     serializer.should have_attribute :foo
   end
+  
+  it "should match singular attributes" do
+    serializer = Class.new ActiveModel::Serializer do
+      attribute :foo
+    end
+    
+    serializer.should_not have_attribute :bar
+    serializer.should have_attribute :foo
+  end
+  
+  it "should match attributes with keys" do
+    serializer = Class.new ActiveModel::Serializer do
+      attribute :foo, :key => :foo_name
+    end
+    
+    serializer.should_not have_attribute :bar
+    serializer.should have_attribute :foo
+    serializer.should have_attribute(:foo).as(:foo_name)
+    serializer.should_not have_attribute(:foo).as(:another_name)
+  end
 
   it "should match the embed setting" do
     serializer = Class.new ActiveModel::Serializer do
