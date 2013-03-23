@@ -41,7 +41,7 @@ module ActiveModel
       end
 
       class Embed
-        attr_accessor :expected, :actual
+        attr_accessor :name, :expected, :actual
 
         def initialize(expected)
           @expected = expected
