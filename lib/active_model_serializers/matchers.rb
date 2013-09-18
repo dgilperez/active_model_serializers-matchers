@@ -143,13 +143,14 @@ module ActiveModel
           @actual = actual
 
           matched_association = associations.select do |assc|
-            assc.name == name
-          end.first
+            assc == name
+          end
 
-          return false unless matched_association
+
+          return false unless !matched_association.empty?
 
           if key
-            return false if matched_association.key != key
+            return false if matched_association[name].options[:key] != key
           end
 
           true
