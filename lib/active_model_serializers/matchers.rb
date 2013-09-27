@@ -80,7 +80,7 @@ module ActiveModel
       end
 
       class HaveAttribute
-        attr_accessor :name, :actual
+        attr_accessor :name, :actual, :key
 
         def initialize(name)
           @name = name
@@ -88,8 +88,18 @@ module ActiveModel
 
         def matches?(actual)
           @actual = actual
+          matched_attribute = attributes[name]
+          
+          unless key.nil?
+            return !matched_attribute.nil? && matched_attribute == key
+          end
+          
+          !matched_attribute.nil?
+        end
 
-          attributes.has_key?(name)
+        def as(key)
+          self.key = key
+          self
         end
 
         def description

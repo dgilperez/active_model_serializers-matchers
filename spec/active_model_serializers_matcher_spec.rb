@@ -5,11 +5,17 @@ describe ActiveModel::Serializers::Matchers do
 
   it "should be false if the serializer does not have an attribute" do
     serializer = Class.new ActiveModel::Serializer do
-      attributes :foo
+      attribute  :foo, key: :foobar
+      attribute  :bar
+      attributes :jugs
     end
 
-    serializer.should_not have_attribute :bar
+    serializer.should have_attribute :bar
     serializer.should have_attribute :foo
+    serializer.should have_attribute(:foo).as(:foobar)
+    serializer.should_not have_attribute(:foo).as(:barfoo)
+    serializer.should have_attribute :jugs
+    serializer.should_not have_attribute :nah
   end
 
   it "should match the embed setting" do
