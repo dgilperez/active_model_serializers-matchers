@@ -20,7 +20,5 @@ end
 require 'rspec'
 
 RSpec.configure do |config|
-  config.include SerializerExampleGroup, :example_group => {
-    :file_path => /spec\/serializers/
-  }
+  config.include SerializerExampleGroup, file_path: /spec\/serializers/
 end
